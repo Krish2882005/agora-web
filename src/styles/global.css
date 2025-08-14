@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html.index-page {
+  overscroll-behavior-y: contain;
+}
+@screen md {
+  html.index-page {
+    scroll-snap-type: y mandatory;
+  }
+
+  html.index-page section,
+  html.index-page footer {
+    scroll-snap-align: start;
+  }
+}
+
+:root {
+  --bg-color: #f8f7f2;
+  --text-color: #2c3e50;
+  --primary-color: #3a5a40;
+  --accent-color: #a37e2c;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Lora", serif;
+  font-weight: 500;
+}
+.background-gradient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  background: radial-gradient(
+      ellipse at top left,
+      rgba(58, 90, 64, 0.05),
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at bottom right,
+      rgba(163, 126, 44, 0.05),
+      transparent 50%
+    );
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-color text-bg-color rounded-full px-8 py-3 font-semibold transition-all duration-300 ease-in-out shadow-lg;
+  }
+  .btn-primary:hover {
+    @apply -translate-y-1 shadow-primary-color/30 shadow-xl;
+  }
+  .btn-secondary {
+    @apply bg-transparent text-primary-color border border-primary-color rounded-full px-6 py-2 text-sm font-semibold transition-all duration-300 ease-in-out;
+  }
+  .btn-secondary:hover {
+    @apply bg-primary-color text-bg-color -translate-y-0.5;
+  }
+  .feature-card {
+    @apply bg-white/30 border border-text-color/10 rounded-2xl p-8 transition-all duration-300 ease-out;
+  }
+  .feature-card:hover {
+    @apply -translate-y-2 border-primary-color shadow-2xl shadow-text-color/5;
+  }
+  .feature-card i {
+    @apply text-primary-color transition-all duration-300 ease-out;
+  }
+  .feature-card:hover i {
+    @apply scale-110 text-accent-color;
+  }
+
+  .timeline-container {
+    @apply relative;
+  }
+  .how-it-works-step {
+    @apply relative;
+  }
+
+  .how-it-works-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50%;
+    width: 2px;
+    height: calc(100% + 3rem);
+    background: rgba(44, 62, 80, 0.08);
+    z-index: 0;
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .how-it-works-step:not(:last-child)::after {
+      display: block;
+      height: calc(100% + 4rem);
+    }
+  }
+
+  .how-it-works-dot {
+    @apply absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-bg-color border-2 border-text-color/15 z-10 transition-all duration-300 ease-out;
+  }
+  .how-it-works-step:hover .how-it-works-dot {
+    @apply border-primary-color scale-110;
+  }
+}
+
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.scroll-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.delay-100 {
+  transition-delay: 100ms;
+}
+.delay-200 {
+  transition-delay: 200ms;
+}
+.delay-300 {
+  transition-delay: 300ms;
+}
+.delay-400 {
+  transition-delay: 400ms;
+}

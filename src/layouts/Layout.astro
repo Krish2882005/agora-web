@@ -1,0 +1,98 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description?: string;
+    pageType?: string;
+}
+
+const { 
+    title, 
+    description = "Agora transforms chaotic arguments into structured, enlightening dialogues. Rediscover the power of reasoned debate.", 
+    pageType,
+} = Astro.props;
+
+const siteName = "Agora";
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImageURL = new URL("/favicon.svg", Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="en" class:list={[{ 'index-page': pageType === 'index' }, 'scroll-smooth']}>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalURL.href} />
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="apple-mobile-web-app-title" content="Agora" />
+    <meta name="theme-color" content="#3A5A40" />
+
+    <meta itemprop="name" content={`${title}`} />
+    <meta itemprop="description" content={description} />
+    <meta itemprop="image" content={socialImageURL.href} />
+
+    <meta property="og:title" content={`${title}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:image" content={socialImageURL.href} />
+    <meta property="og:image:alt" content={`Logo for ${siteName}`} />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary" /> 
+    <meta name="twitter:title" content={`${title}`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL.href} />
+    <meta name="twitter:image:alt" content={`Logo for ${siteName}`} />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/feather-icons" is:inline></script>
+</head>
+
+<body class="bg-bg-color font-sans text-text-color">
+    <div class="background-gradient"></div>
+    <Header />
+    <main>
+        <slot />
+    </main>
+    <Footer />
+
+    <script>
+        feather.replace();
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.scroll-animate');
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('is-visible');
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    },
+                    { threshold: 0.1 }
+                );
+                animatedElements.forEach(el => observer.observe(el));
+            } else {
+                animatedElements.forEach(el => el.classList.add('is-visible'));
+            }
+        });
+    </script>
+</body>
+</html>

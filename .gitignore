@@ -1,0 +1,33 @@
+# --- General ---
+# System files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Dependencies ---
+# The folder where all your project's packages are installed
+node_modules/
+
+# --- Astro ---
+# The default build output directory
+dist/
+
+# Astro's internal cache and type generation directory
+.astro/
+
+# --- Environment Variables ---
+# Never commit your secret keys or environment variables
+.env
+.env.*
+!.env.example
+!.env.d.ts
+
+# --- IDE/Editor ---
+# VS Code specific files
+.vscode/
